@@ -33,16 +33,16 @@
     widget.openDialog(null, {
       done: file => {
         file.done(info => {
-          const cdnUrl = info.cdnUrl || info.cdnUrlModifiers || info.originalUrl;
-          
-          if (!cdnUrl) {
+          const url = info.cdnUrl;
+
+          if (!url) {
             alert("No se pudo cargar la imagen. Intenta nuevamente.");
             return;
           }
 
           const galeria = document.getElementById('galeria');
           const img = document.createElement('img');
-          img.src = info.cdnUrl;
+          img.src = url;
           img.alt = "Imagen subida";
           galeria.prepend(img);
           alert("¡Gracias por compartir tu dibujo!");
@@ -51,8 +51,6 @@
     });
   }
 </script>
-
-
 
 </body>
 </html>
