@@ -35,32 +35,33 @@
     Esta galería es un archivo vivo de memorias compartidas.
   </footer>
 
-  <script>
-    function info.cdnUrl() {
-      const widget = uploadcare.Widget('[role=uploadcare-uploader]');
-      widget.openDialog(null, {
-        done: file => {
-          file.done(info => {
-            const url = info.cdnUrl;
+ <script>
+  function mostrarImagen() {
+    const widget = uploadcare.Widget('[role=uploadcare-uploader]');
+    widget.openDialog(null, {
+      done: file => {
+        file.done(info => {
+          const url = typeof info.cdnUrl === 'string' ? info.cdnUrl : null;
 
-            if (!url) {
-              alert("No se pudo cargar la imagen. Intenta nuevamente.");
-              return;
-            }
+          if (!url) {
+            alert("No se pudo cargar la imagen. Intenta nuevamente.");
+            return;
+          }
 
-            const galeria = document.getElementById('galeria');
-            const img = document.createElement('img');
-            img.src = url;
-            img.alt = "Imagen subida";
-            galeria.prepend(img);
+          const galeria = document.getElementById('galeria');
+          const img = document.createElement('img');
+          img.src = url;
+          img.alt = "Imagen subida";
+          galeria.prepend(img);
 
-            console.log("Imagen mostrada:", url);
-            alert("¡Gracias por compartir tu dibujo!");
-          });
-        }
-      });
-    }
-  </script>
+          console.log("Imagen mostrada:", url);
+          alert("¡Gracias por compartir tu dibujo!");
+        });
+      }
+    });
+  }
+</script>
+
 
 </body>
 </html>
