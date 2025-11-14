@@ -101,15 +101,34 @@
               alert("No se pudo cargar la imagen.");
               return;
             }
-            const galeria = document.getElementById('galeria');
-            const img = document.createElement('img');
-            img.src = url;
-            img.alt = "Imagen subida";
-            galeria.prepend(img);
+
+            // Mostrar la imagen
+            agregarImagenAGaleria(url);
+
+            // Guardar en localStorage
+            let imagenes = JSON.parse(localStorage.getItem("imagenes")) || [];
+            imagenes.unshift(url);
+            localStorage.setItem("imagenes", JSON.stringify(imagenes));
           });
         }
       });
     }
+
+    function agregarImagenAGaleria(url) {
+      const galeria = document.getElementById('galeria');
+      const img = document.createElement('img');
+      img.src = url;
+      img.alt = "Imagen subida";
+      galeria.prepend(img);
+    }
+
+    // Cargar imágenes guardadas al cargar la página
+    window.addEventListener("DOMContentLoaded", () => {
+      const imagenes = JSON.parse(localStorage.getItem("imagenes")) || [];
+      imagenes.forEach(url => {
+        agregarImagenAGaleria(url);
+      });
+    });
   </script>
 
 </body>
