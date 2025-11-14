@@ -4,8 +4,71 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Galería de Dibujos</title>
-  <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Manrope:wght@300&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'EB Garamond', serif;
+      background: #0d0d0d;
+      color: #eaeaea;
+      padding: 3rem 1.5rem;
+      max-width: 900px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      color: #ffffff;
+      font-family: 'Manrope', sans-serif;
+    }
+    .subtexto {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+      color: #c5c5c5;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: auto;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 10px;
+      border: 2px solid white;
+    }
+    .upload-area {
+      margin-top: auto;
+      text-align: center;
+      padding-top: 3rem;
+    }
+    .upload-area button {
+      background: #ffffff;
+      color: #0d0d0d;
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: 'Manrope', sans-serif;
+      font-size: 1rem;
+    }
+    footer {
+      margin-top: 4rem;
+      font-size: 0.9rem;
+      text-align: center;
+      color: #777;
+    }
+    .uploadcare--widget,
+    .uploadcare--widget__button,
+    .uploadcare--widget__button_type_open {
+      display: none !important;
+    }
+  </style>
+
   <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
   <script>
     UPLOADCARE_PUBLIC_KEY = 'fd53f76ec33279268a6c';
@@ -16,18 +79,10 @@
   <h1>Sube tu dibujo</h1>
   <p class="subtexto">Un espacio para compartir fragmentos de tu memoria</p>
 
-  <!-- Galería primero -->
   <div class="gallery" id="galeria"></div>
 
-  <!-- Área de carga -->
   <div class="upload-area">
-    <input
-      type="hidden"
-      role="uploadcare-uploader"
-      data-crop="free"
-      data-images-only
-      data-clearable="true"
-    >
+    <input type="hidden" role="uploadcare-uploader" data-images-only data-crop="free" />
     <button onclick="mostrarImagen()">Seleccionar dibujo</button>
   </div>
 
@@ -35,33 +90,27 @@
     Esta galería es un archivo vivo de memorias compartidas.
   </footer>
 
- <script>
-  function mostrarImagen() {
-    const widget = uploadcare.Widget('[role=uploadcare-uploader]');
-    widget.openDialog(null, {
-      done: file => {
-        file.done(info => {
-          const url = typeof info.cdnUrl === 'string' ? info.cdnUrl : null;
-
-          if (!url) {
-            alert("No se pudo cargar la imagen. Intenta nuevamente.");
-            return;
-          }
-
-          const galeria = document.getElementById('galeria');
-          const img = document.createElement('img');
-          img.src = url;
-          img.alt = "Imagen subida";
-          galeria.prepend(img);
-
-          console.log("Imagen mostrada:", url);
-          alert("¡Gracias por compartir tu dibujo!");
-        });
-      }
-    });
-  }
-</script>
-
+  <script>
+    function mostrarImagen() {
+      const widget = uploadcare.Widget('[role=uploadcare-uploader]');
+      widget.openDialog(null, {
+        done: file => {
+          file.done(info => {
+            const url = info.cdnUrl;
+            if (!url) {
+              alert("No se pudo cargar la imagen.");
+              return;
+            }
+            const galeria = document.getElementById('galeria');
+            const img = document.createElement('img');
+            img.src = url;
+            img.alt = "Imagen subida";
+            galeria.prepend(img);
+          });
+        }
+      });
+    }
+  </script>
 
 </body>
 </html>
