@@ -27,22 +27,25 @@
     Esta galería es un archivo vivo de memorias compartidas.
   </footer>
 
-  <script>
-    function mostrarImagen() {
-      const widget = uploadcare.Widget('[role=uploadcare-uploader]');
-      widget.openDialog(null, {
-        done: file => {
-          file.done(info => {
-            const galeria = document.getElementById('galeria');
-            const img = document.createElement('img');
-            img.src = info.cdnUrl;
-            galeria.prepend(img);
-            alert("¡Gracias por compartir tu dibujo!");
-          });
-        }
-      });
-    }
-  </script>
+ <script>
+  function mostrarImagen() {
+    const widget = uploadcare.Widget('[role=uploadcare-uploader]');
+    widget.openDialog(null, {
+      done: file => {
+        file.done(info => {
+          console.log("URL de imagen subida:", info.cdnUrl);
+          const galeria = document.getElementById('galeria');
+          const img = document.createElement('img');
+          img.src = info.cdnUrl;
+          img.alt = "Imagen subida";
+          galeria.prepend(img);
+          alert("¡Gracias por compartir tu dibujo!");
+        });
+      }
+    });
+  }
+</script>
+
 
 </body>
 </html>
