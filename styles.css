@@ -1,10 +1,28 @@
+:root {
+  /* Variables para facilitar mantenimiento / theming */
+  --bg: #ffffff;
+  --text: #111827;
+  --muted: #6b7280;
+  --accent: #0d0d0d;
+  --card-bg: #1a1a1a;
+  --shadow: rgba(0, 0, 0, 0.08);
+  --radius: 10px;
+  --gap: 1.5rem;
+  --transition: 0.32s;
+  --h1-color: #111827; /* corregido para contraste sobre fondo claro */
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'EB Garamond', serif;
-  background: #ffffff;
-  color: #000000;
+  background: var(--bg);
+  color: var(--text);
   padding: 3rem 1.5rem;
   max-width: 900px;
-  margin: auto;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -14,7 +32,7 @@ h1 {
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
-  color: #ffffff;
+  color: var(--h1-color);
   font-family: 'Manrope', sans-serif;
   font-weight: 300;
   letter-spacing: 0.5px;
@@ -24,32 +42,46 @@ h1 {
   text-align: center;
   margin-bottom: 2rem;
   font-size: 1.1rem;
-  color: #c5c5c5;
+  color: var(--muted);
 }
 
+/* Galería: responsiva y respetando proporciones */
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1.5rem;
+  gap: var(--gap);
   margin-bottom: auto;
 }
 
 .gallery img {
   width: 100%;
-  height: 200px; /* Opcional: uniforme */
-  border-radius: 10px;
-  box-shadow: 0 8px 12px rgba(255, 255, 255, 0.06);
+  /* Mejor usar aspect-ratio para consistencia en distintas pantallas */
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius);
+  box-shadow: 0 8px 12px var(--shadow);
   object-fit: cover;
-  background-color: #1a1a1a;
+  background-color: var(--card-bg);
   border: none;
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transform: translateY(6px);
+  transition: opacity var(--transition) ease, transform var(--transition) ease;
+  display: block;
 }
 
+/* Estado cuando la imagen ya cargó */
 .gallery img.loaded {
-  opacity: 100;
+  opacity: 1; /* 1 en lugar de 100 */
+  transform: translateY(0);
 }
 
+/* Si prefieres que las imágenes tengan altura fija en móviles, usa media queries */
+@media (max-width: 420px) {
+  .gallery img {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* Área de subida y botones */
 .upload-area {
   margin-top: auto;
   text-align: center;
@@ -57,32 +89,51 @@ h1 {
 }
 
 .upload-area button {
-  background: #ffffff;
-  color: #0d0d0d;
-  border: none;
+  background: var(--bg);
+  color: var(--accent);
+  border: 1px solid rgba(0,0,0,0.06);
   padding: 0.8rem 2rem;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
   font-family: 'Manrope', sans-serif;
   font-size: 1rem;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: background var(--transition) ease, color var(--transition) ease, transform 0.12s ease;
 }
 
 .upload-area button:hover {
-  background: #eaeaea;
-  color: #000;
+  background: #f6f6f6;
+  color: var(--accent);
+  transform: translateY(-1px);
 }
 
+/* Soporte a teclado (accesibilidad) */
+.upload-area button:focus-visible {
+  outline: 3px solid rgba(13,13,13,0.12);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Footer */
 footer {
   margin-top: 4rem;
   font-size: 0.9rem;
   text-align: center;
-  color: #777;
+  color: var(--muted);
 }
 
-/* Ocultar botón nativo de Uploadcare */
+/* Ocultar botón nativo de Uploadcare — cuidado: esto quita la UI nativa.
+   Mantén si realmente quieres custom UI; de lo contrario remueve esta regla. */
 .uploadcare--widget,
 .uploadcare--widget__button,
 .uploadcare--widget__button_type_open {
   display: none !important;
+}
+
+/* Respeta usuarios con preferencia por menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .gallery img,
+  .upload-area button {
+    transition: none !important;
+    transform: none !important;
+  }
 }
