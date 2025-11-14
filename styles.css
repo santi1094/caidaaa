@@ -74,7 +74,7 @@ footer {
   color: #777;
 }
 
-uploadcare--widget,
+.uploadcare--widget,
 .uploadcare--widget__button,
 .uploadcare--widget__button_type_open {
   display: none !important;
