@@ -27,13 +27,19 @@
     Esta galería es un archivo vivo de memorias compartidas.
   </footer>
 
- <script>
+<script>
   function mostrarImagen() {
     const widget = uploadcare.Widget('[role=uploadcare-uploader]');
     widget.openDialog(null, {
       done: file => {
         file.done(info => {
-          console.log("URL de imagen subida:", info.cdnUrl);
+          const cdnUrl = info.cdnUrl || info.cdnUrlModifiers || info.originalUrl;
+          
+          if (!cdnUrl) {
+            alert("No se pudo cargar la imagen. Intenta nuevamente.");
+            return;
+          }
+
           const galeria = document.getElementById('galeria');
           const img = document.createElement('img');
           img.src = info.cdnUrl;
@@ -45,6 +51,7 @@
     });
   }
 </script>
+
 
 
 </body>
