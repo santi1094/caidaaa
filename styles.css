@@ -43,13 +43,13 @@ h1 {
   box-shadow: 0 8px 12px rgba(255, 255, 255, 0.06);
   object-fit: cover;
   background-color: #1a1a1a;
-  border: 2px solid limegreen; /* solo para pruebas */
 }
 
 
 .upload-area {
-  margin-top: 3rem;
+  margin-top: auto;
   text-align: center;
+  padding-top: 3rem;
 }
 
 .upload-area button {
@@ -85,9 +85,4 @@ footer {
   display: none !important;
   }
 
-  .upload-area {
-  margin-top: auto;
-  text-align: center;
-  padding-top: 3rem;
-}
-
+ 
