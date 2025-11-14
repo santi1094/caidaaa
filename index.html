@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Manrope:wght@300&display=swap" rel="stylesheet">
   <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
   <script>
-    UPLOADCARE_PUBLIC_KEY = 'fd53f76ec33279268a6c'; // Reemplázala por tu clave real
+    UPLOADCARE_PUBLIC_KEY = 'fd53f76ec33279268a6c';
   </script>
 </head>
 <body>
@@ -16,44 +16,51 @@
   <h1>Sube tu dibujo</h1>
   <p class="subtexto">Un espacio para compartir fragmentos de tu memoria</p>
 
- <div class="gallery" id="galeria"></div>
+  <!-- Galería primero -->
+  <div class="gallery" id="galeria"></div>
 
-<div class="upload-area">
-  <input type="hidden" role="uploadcare-uploader" data-crop="free" data-images-only>
-  <button onclick="mostrarImagen()">Seleccionar dibujo</button>
-</div>
-
+  <!-- Área de carga -->
+  <div class="upload-area">
+    <input
+      type="hidden"
+      role="uploadcare-uploader"
+      data-crop="free"
+      data-images-only
+      data-clearable="true"
+    >
+    <button onclick="mostrarImagen()">Seleccionar dibujo</button>
+  </div>
 
   <footer>
     Esta galería es un archivo vivo de memorias compartidas.
   </footer>
 
-<script>
-  function mostrarImagen() {
-    const widget = uploadcare.Widget('[role=uploadcare-uploader]');
-    widget.openDialog(null, {
-      done: file => {
-        file.done(info => {
-          const url = info.cdnUrl; // ✅ Esta es la forma correcta
+  <script>
+    function mostrarImagen() {
+      const widget = uploadcare.Widget('[role=uploadcare-uploader]');
+      widget.openDialog(null, {
+        done: file => {
+          file.done(info => {
+            const url = info.cdnUrl;
 
-          if (!url) {
-            alert("No se pudo cargar la imagen. Intenta nuevamente.");
-            return;
-          }
+            if (!url) {
+              alert("No se pudo cargar la imagen. Intenta nuevamente.");
+              return;
+            }
 
-          const galeria = document.getElementById('galeria');
-          const img = document.createElement('img');
-          img.src = url;
-          img.alt = "Imagen subida";
-          galeria.prepend(img); // ✅ se agrega en la parte superior
+            const galeria = document.getElementById('galeria');
+            const img = document.createElement('img');
+            img.src = url;
+            img.alt = "Imagen subida";
+            galeria.prepend(img);
 
-          alert("¡Gracias por compartir tu dibujo!");
-        });
-      }
-    });
-  }
-</script>
-
+            console.log("Imagen mostrada:", url);
+            alert("¡Gracias por compartir tu dibujo!");
+          });
+        }
+      });
+    }
+  </script>
 
 </body>
 </html>
