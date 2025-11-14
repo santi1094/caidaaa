@@ -16,12 +16,13 @@
   <h1>Sube tu dibujo</h1>
   <p class="subtexto">Un espacio para compartir fragmentos visuales de tu memoria</p>
 
-  <div class="upload-area">
-     <input type="hidden" role="uploadcare-uploader" data-crop="free" data-images-only>
-    <button onclick="mostrarImagen()">Seleccionar dibujo</button>
-  </div>
+ <div class="gallery" id="galeria"></div>
 
-  <div class="gallery" id="galeria"></div>
+<div class="upload-area">
+  <input type="hidden" role="uploadcare-uploader" data-crop="free" data-images-only>
+  <button onclick="mostrarImagen()">Seleccionar dibujo</button>
+</div>
+
 
   <footer>
     Esta galería es un archivo vivo de memorias compartidas.
@@ -33,7 +34,7 @@
     widget.openDialog(null, {
       done: file => {
         file.done(info => {
-          const url = info.cdnUrl;
+          const url = info.cdnUrl; // ✅ Esta es la forma correcta
 
           if (!url) {
             alert("No se pudo cargar la imagen. Intenta nuevamente.");
@@ -44,13 +45,15 @@
           const img = document.createElement('img');
           img.src = url;
           img.alt = "Imagen subida";
-          galeria.prepend(img);
+          galeria.prepend(img); // ✅ se agrega en la parte superior
+
           alert("¡Gracias por compartir tu dibujo!");
         });
       }
     });
   }
 </script>
+
 
 </body>
 </html>
