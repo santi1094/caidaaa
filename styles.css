@@ -35,16 +35,13 @@ h1 {
 }
 
 .gallery img {
-  display: block;
   width: 100%;
-  max-width: 100%;
-  height: auto;
   border-radius: 10px;
   box-shadow: 0 8px 12px rgba(255, 255, 255, 0.06);
   object-fit: cover;
   background-color: #1a1a1a;
+  border: none;
 }
-
 
 .upload-area {
   margin-top: auto;
@@ -61,16 +58,13 @@ h1 {
   cursor: pointer;
   font-family: 'Manrope', sans-serif;
   font-size: 1rem;
-  font-weight: 400;      /* 👈 Añadido */
-  font-style: normal;    /* 👈 Añadido */
   transition: background 0.3s ease, color 0.3s ease;
 }
+
 .upload-area button:hover {
   background: #eaeaea;
   color: #000;
-  font-family: 'Manrope', sans-serif;
-  font-weight: 400;      
-  font-style: normal;   
+}
 
 footer {
   margin-top: 4rem;
@@ -83,6 +77,4 @@ footer {
 .uploadcare--widget__button,
 .uploadcare--widget__button_type_open {
   display: none !important;
-  }
-
- 
+}
