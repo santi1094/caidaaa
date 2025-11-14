@@ -1,19 +1,68 @@
-<div class="slideshow">
-  <div class="grid">
-    <!-- 14 blokken voor een grotere mozaïek -->
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
-    <div class="tile"></div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galería de Dibujos</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #fff;
+      padding: 2rem;
+      max-width: 700px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+    }
+    .upload-area {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+  </style>
+  <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
+  <script>
+    UPLOADCARE_PUBLIC_KEY = 'demopublickey'; // Usa tu propia API key
+  </script>
+</head>
+<body>
+
+  <h1>Sube tu dibujo</h1>
+
+  <div class="upload-area">
+    <input type="hidden" role="uploadcare-uploader" data-crop="free" data-images-only>
+    <button onclick="mostrarImagen()">Ver imagen</button>
   </div>
-</div>
+
+  <h2>Galería</h2>
+  <div class="gallery" id="galeria"></div>
+
+  <script>
+    function mostrarImagen() {
+      const widget = uploadcare.Widget('[role=uploadcare-uploader]');
+      widget.openDialog(null, {
+        done: file => {
+          file.done(info => {
+            const galeria = document.getElementById('galeria');
+            const img = document.createElement('img');
+            img.src = info.cdnUrl;
+            galeria.prepend(img);
+            alert("¡Gracias por compartir tu dibujo!");
+          });
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
