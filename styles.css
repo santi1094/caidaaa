@@ -79,3 +79,9 @@ footer {
 .uploadcare--widget__button_type_open {
   display: none !important;
   }
+
+  .upload-area {
+  margin-top: auto;
+  text-align: center;
+  padding-top: 3rem;
+}
