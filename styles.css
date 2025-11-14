@@ -47,7 +47,7 @@ h1 {
 }
 
 .gallery img.loaded {
-  opacity: 1;
+  opacity: 100;
 }
 
 .upload-area {
