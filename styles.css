@@ -62,6 +62,7 @@ h1 {
 .upload-area button:hover {
   background: #eaeaea;
   color: #000;
+   font-family: 'Manrope', sans-serif;  
 }
 
 footer {
