@@ -56,14 +56,16 @@ h1 {
   cursor: pointer;
   font-family: 'Manrope', sans-serif;
   font-size: 1rem;
+  font-weight: 400;      /* 👈 Añadido */
+  font-style: normal;    /* 👈 Añadido */
   transition: background 0.3s ease, color 0.3s ease;
 }
-
 .upload-area button:hover {
   background: #eaeaea;
   color: #000;
-   font-family: 'Manrope', sans-serif;  
-}
+  font-family: 'Manrope', sans-serif;
+  font-weight: 400;      
+  font-style: normal;   
 
 footer {
   margin-top: 4rem;
